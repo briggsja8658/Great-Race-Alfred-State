@@ -1,0 +1,221 @@
+{{template "base" .}}
+    {{define "content"}}
+        <div id="createProfile" class="mainContent txtCenter hidden">
+        <h1>Welcome, create a profile</h1>
+        <div class="centerContent">
+            <img style="width:100%;" src="/img/logo.webp" />
+        </div>
+        <div id="form">
+            <div id="firstNameContainer" class="mtMD">
+                <div class="labelContainer">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="inputContainer" class="mtSM">
+                    <input type="text" placeholder="First Name" id="firstName" class="centerContent ptSM pbSM">
+                    <div id="firstNameError" class="error hidden ptMD pbMD">Please enter your first name</div>
+                </div>
+            </div>
+            <div id="lastNameContainer" class="mtMD">
+                <div class="labelContainer">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="inputContainer" class="mtSM">
+                    <input type="text" placeholder="Last Name" id="lastName" class="centerContent ptSM pbSM">
+                    <div id="lastNameError" class="error hidden ptMD pbMD">Please enter your last name</div>
+                </div>
+            </div>
+            <div id="buttonContainer" class="mtMD mbXL">
+                <button id="submit" class="centerContent ptMD pbMD">Create Profile</button>
+            </div>
+        </div>
+    </div>
+    <div id="activeUser" class="mainContent txtCenter hidden">
+        <!-- Show list of locations here and the time they where completed -->
+        <!-- Use json to update -->
+        <div id="listOfLocations" class="mtLG">
+            
+            <h2>Locations</h2>
+            <div id="pioneerStadium" class="locationContainer mtMD">
+                <span>${locationNames.pioneerStadium} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="taParishHall" class="locationContainer mtMD">
+                <span>${locationNames.taParishHall} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="studentDevelopmentCenter" class="locationContainer mtMD">
+                <span>${locationNames.studentDevelopmentCenter} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="hindelLibrary" class="locationContainer mtMD">
+                <span>${locationNames.hindelLibrary} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="financialAid" class="locationContainer mtMD">
+                <span>${locationNames.financialAid} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="studentLeadershipCenter" class="locationContainer mtMD">
+                <span>${locationNames.studentLeadershipCenter} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="ejBrownHall" class="locationContainer mtMD">
+                <span>${locationNames.ejBrownHall} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="mailCenter" class="locationContainer mtMD">
+                <span>${locationNames.mailCenter} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="orvisActivitiesCenter" class="locationContainer mtMD">
+                <span>${locationNames.orvisActivitiesCenter} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="baseballField" class="locationContainer mtMD">
+                <span>${locationNames.baseballField} found : </span><span class="found">Not Found</span>
+            </div>
+            <div id="softballField" class="locationContainer mtMD">
+                <span>${locationNames.softballField} found : </span><span class="found">Not Found</span>
+            </div>
+        </div>
+        <div id="position" class="mtLG">
+            <!-- Filled with JS -->
+        </div>
+    </div>
+    <script>
+        const locationNames = {
+            "pioneerStadium" : "Pioneer Stadium",
+            "taParishHall" : "T.A. Parish Hall",
+            "studentDevelopmentCenter" : "Student Development Center",
+            "hindelLibrary" : "Hindel Library",
+            "financialAid" : "Financial Aid",
+            "studentLeadershipCenter" : "Student Leadership Center",
+            "ejBrownHall" : "EJ Brown Hall",
+            "mailCenter" : "Mail Center",
+            "orvisActivitiesCenter" : "Orvis Activities Center",
+            "baseballField" : "Baseball Field",
+            "softballField" : "Softball Field"
+        }
+        
+        window.onload = () => {
+            userID = localStorage.getItem("userID");
+            if(userID === null){
+                document.getElementById("createProfile").classList.remove("hidden");
+                newUserInit();
+            } else {
+                document.getElementById("createProfile").classList.remove("hidden");
+                trackingInit();
+            }
+        } 
+
+        function showError(errorMessage){
+            errorMessage.classList.remove("hidden");
+        }
+
+        function hideErrors(){
+            errors = document.getElementsByClassName("error");
+            for(x=0; x < errors.length; x++){
+                if(!errors[x].classList.contains("hidden")){
+                    errors[x].classList.add("hidden");
+                }
+            }
+        }
+
+        function checkInput(currentInput){
+            inputEmpty = false;
+            currentInputValue = currentInput.value;
+            if(currentInputValue === ""){
+                inputEmpty = true;
+            }
+            return inputEmpty;
+        }
+
+        function createUserID(){
+            randomID = Math.floor(Math.random() * 100000000);
+            return randomID;
+        }
+
+        function newUserInit(){
+            firstName = document.getElementById("firstName");
+            firstNameError = document.getElementById("firstNameError");
+
+            lastName = document.getElementById("lastName");
+            lastNameError = document.getElementById("lastNameError");
+
+            submitButton = document.getElementById("submit");
+
+            submitButton.addEventListener("click", () => {
+                firstNameBlank = checkInput(firstName);
+                lastNameBlank = checkInput(lastName);
+
+                if (firstNameBlank) {
+                    showError(firstNameError);
+                }
+
+                if (lastNameBlank) {
+                    showError(lastNameError);
+                }
+
+                if (!firstNameBlank && !lastNameBlank) {
+                    //Post to server and get progress id then save it to local storage
+                    userID = createUserID();
+                    debugger;
+                    fetch("/data/createUser", {
+                        method: "post",
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "userID" : userID,
+                            "firstName": firstName,
+                            "lastName": lastName
+                        })
+                    })
+                    .then(async(serverRes) => {
+                        if (serverRes.status === 200) {
+                            serverJson = await serverRes.json();
+                            localStorage.setItem("fristName", firstName);
+                            localStorage.setItem("lastName", lastName);
+                            localStorage.setItem("userID", userID);
+                            alert("Profile Created!")
+
+                        } else {
+                            alert("There was a server error. Please submit time again")
+                        }
+                    });
+                }
+            });
+        
+        }
+    
+        function trackingInit(){
+            setInterval(()=>{
+                fetch("/data/getLocations", {
+                    method: "get",
+                    mode: "cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "userID" : localStorage.getItem("userID")
+                    })
+                })
+                .then(async(serverRes) => {
+                    if (serverRes.status === 200) {
+                        locationData = await serverRes.json();
+                        appendLocationsFound(locationData)
+                    }
+                });
+            }, 10000);
+
+            setInterval(()=>{
+
+            }, 15000);
+        }
+    
+        function appendLocationsFound(locationData){
+            listOfFounds = document.getElementsByClassName("found");
+            for(x=0; x < listOfFounds.length; x++){
+                if(locationData[x] !== 0){
+                    listOfFounds.innerText = "Found";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+    {{end}}
+

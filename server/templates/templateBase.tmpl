@@ -1,0 +1,295 @@
+{{define "base"}}
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta 
+                name="viewport"
+                content="width=device-width, 
+                user-scalable=no, 
+                initial-scale=1.0, 
+                maximum-scale=1.0, 
+                minimum-scale=1.0"
+            >
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Great Race</title>
+            <style>
+                /* Global Vars */
+                :root{
+                    --round: 15px;
+                    --shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.25);
+                    --logoSize: 35px;
+
+                    --xxl: 50px;
+                    --xl: 31px;
+                    --lg: 19px;
+                    --md: 12px;
+                    --sm: 7px;
+                    --xsm: 5px;
+                    --xxsm: 3px;
+                } 
+
+
+                /* GLOBAL CLASSES */
+                /* General Tools */
+                .hidden{
+                    display: none;
+                }
+                /* Border Radius */
+                .roundTop {
+                    border-top-left-radius: var(--round);
+                    border-top-right-radius: var(--round);
+                }
+                .roundBottom {
+                    border-top-left-radius: var(--round);
+                    border-top-right-radius: var(--round);
+                }
+                .roundAll{
+                    border-radius: var(--round);
+                }
+
+                /* Text Align */
+                .txtCenter{
+                    text-align: center;
+                }
+                .txtRight{
+                    text-align: right;
+                }
+                .txtLeft{
+                    text-align: left;
+                }
+
+                /* Font Sizing */
+                .fXXL{
+                    font-size: var(--xxl)
+                }
+                .fXL{
+                    font-size: var(--xl)
+                }
+                .fLG{
+                    font-size: var(--lg)
+                }
+                .fMD{
+                    font-size: var(--md)
+                }
+                .fSM{
+                    font-size: var(--sm)
+                }
+                .fXSM{
+                    font-size: var(--xsm)
+                }
+                .fXXSM{
+                    font-size: var(--xxsm)
+                }
+
+
+                /* Margin Tops */
+                .mtXXL{
+                    margin-top:var(--xxl)
+                }
+                .mtXL{
+                    margin-top:var(--xl)
+                }
+                .mtLG{
+                    margin-top:var(--lg)
+                }
+                .mtMD{
+                    margin-top:var(--md)
+                }
+                .mtSM{
+                    margin-top:var(--sm)
+                }
+                .mtXSM{
+                    margin-top:var(--xsm)
+                }
+                .mtXXSM{
+                    margin-top:var(--xxsm)
+                }
+
+                /* Margin Bottoms */
+                .mbXXL{
+                    margin-bottom:var(--xxl)
+                }
+                .mbXL{
+                    margin-bottom:var(--xl)
+                }
+                .mbLG{
+                    margin-bottom:var(--lg)
+                }
+                .mbMD{
+                    margin-bottom:var(--md)
+                }
+                .mbSM{
+                    margin-bottom:var(--sm)
+                }
+                .mbXSM{
+                    margin-bottom:var(--xsm)
+                }
+                .mbXXSM{
+                    margin-bottom:var(--xxsm)
+                }
+
+                /* Margin Rights */
+                .mrXXL{
+                    margin-right:var(--xxl)
+                }
+                .mrXL{
+                    margin-right:var(--xl)
+                }
+                .mrLG{
+                    margin-right:var(--lg)
+                }
+                .mrMD{
+                    margin-right:var(--md)
+                }
+                .mrSM{
+                    margin-right:var(--sm)
+                }
+                .mrXSM{
+                    margin-right:var(--xsm)
+                }
+                .mrXXSM{
+                    margin-right:var(--xxsm)
+                }
+
+                /* Margin Lefts */
+                .mlXXL{
+                    margin-left:var(--xxl)
+                }
+                .mlXL{
+                    margin-left:var(--xl)
+                }
+                .mlLG{
+                    margin-left:var(--lg)
+                }
+                .mlMD{
+                    margin-left:var(--md)
+                }
+                .mlSM{
+                    margin-left:var(--sm)
+                }
+                .mlXSM{
+                    margin-left:var(--xsm)
+                }
+                .mlXXSM{
+                    margin-left:var(--xxsm)
+                }
+
+                /* Padding Tops */
+                .ptXXL{
+                    padding-top:var(--xxl)
+                }
+                .ptXL{
+                    padding-top:var(--xl)
+                }
+                .ptLG{
+                    padding-top:var(--lg)
+                }
+                .ptMD{
+                    padding-top:var(--md)
+                }
+                .ptSM{
+                    padding-top:var(--sm)
+                }
+                .ptXSM{
+                    padding-top:var(--xsm)
+                }
+                .ptXXSM{
+                    padding-top:var(--xxsm)
+                }
+
+                /* Padding Bottoms */
+                .pbXXL{
+                    padding-bottom:var(--xxl)
+                }
+                .pbXL{
+                    padding-bottom:var(--xl)
+                }
+                .pbLG{
+                    padding-bottom:var(--lg)
+                }
+                .pbMD{
+                    padding-bottom:var(--md)
+                }
+                .pbSM{
+                    padding-bottom:var(--sm)
+                }
+                .pbXSM{
+                    padding-bottom:var(--xsm)
+                }
+                .pbXXSM{
+                    padding-bottom:var(--xxsm)
+                }
+
+                /* Padding Rights */
+                .prXXL{
+                    padding-right:var(--xxl)
+                }
+                .prXL{
+                    padding-right:var(--xl)
+                }
+                .prLG{
+                    padding-right:var(--lg)
+                }
+                .prMD{
+                    padding-right:var(--md)
+                }
+                .prSM{
+                    padding-right:var(--sm)
+                }
+                .prXSM{
+                    padding-right:var(--xsm)
+                }
+                .prXXSM{
+                    padding-right:var(--xxsm)
+                }
+
+                /* Padding Lefts */
+                .plXXL{
+                    padding-left:var(--xxl)
+                }
+                .plXL{
+                    padding-left:var(--xl)
+                }
+                .plLG{
+                    padding-left:var(--lg)
+                }
+                .plMD{
+                    padding-left:var(--md)
+                }
+                .plSM{
+                    padding-left:var(--sm)
+                }
+                .plXSM{
+                    padding-left:var(--xsm)
+                }
+                .plXXSM{
+                    padding-left:var(--xxsm)
+                }
+            </style>
+            <style>
+                .mainContent{
+                    width:80%;
+                    margin:10%;
+                }
+                .centerContent{
+                    width:50%;
+                    margin-left : 25%;
+                    margin-right : 25%;
+                }
+                .error{
+                    border-left: solid;
+                    border-left-color: blue;
+                    border-left-width: 3px;
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            {{block "content" .}}
+
+            {{end}}
+        </body>
+    </html>
+{{end}}

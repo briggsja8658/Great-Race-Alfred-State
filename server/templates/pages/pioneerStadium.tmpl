@@ -1,0 +1,31 @@
+{{template "base" .}}
+    {{define "content"}}
+        <div id="mainContent" class="txtCenter">
+            <div class="centerContent">
+                <img style="width:100%;" src="/img/logo.webp"/>
+            </div>
+            <h1>Pioneer Stadium Found</h1>
+            <div id="form">
+                <div id="firstNameContainer" class="mtMD">
+                    <div class="labelContainer">
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div class="inputContainer" class="mtSM">
+                        <input type="text" placeholder="First Name" id="firstName" class="centerContent">
+                    </div>
+                </div>
+                <div id="lastNameContainer" class="mtMD">
+                    <div class="labelContainer">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="inputContainer" class="mtSM">
+                        <input type="text" placeholder="Last Name" id="lastName" class="centerContent">
+                    </div>
+                </div>
+                <div id="buttonContainer"  class="mtMD mbXL">
+                    <button id="submit" class="centerContent ptMD pbMD">Claim Location</button>
+                </div>
+            </div>
+        </div>
+    {{end}}
+
