@@ -1,3 +1,7 @@
 # Ignore keys
 server/keys/
-
+server/db/*.sqlite
+server/pictures/*
+client/css/bootstrap/*
+client/js/bootstrap/*
+app.log
